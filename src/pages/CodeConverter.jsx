@@ -168,7 +168,7 @@ function CodeConverter() {
                 <MDEditor
                   value={outputCode}
                   onChange={setOutputCode}
-                  preview="live"
+                  preview="preview"
                   hideToolbar={false}
                   height={300}
                   visibleDragbar={true}

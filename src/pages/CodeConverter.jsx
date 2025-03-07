@@ -4,25 +4,66 @@ import {
   ArrowPathIcon,
   ArrowPathRoundedSquareIcon,
   ArrowRightIcon,
+  BeakerIcon,
   BookmarkIcon,
-  DocumentArrowUpIcon,
-  MicrophoneIcon
+  MicrophoneIcon,
 } from "@heroicons/react/16/solid";
+import MDEditor from "@uiw/react-md-editor";
 import { useState } from "react";
 
 function CodeConverter() {
   const [inputCode, setInputCode] = useState("");
-  const [outputCode, setOutputCode] = useState("");
+  const [outputCode, setOutputCode] = useState(
+    "Converted code will appear here..."
+  );
+  const [isShaking, setIsShaking] = useState(false);
 
-  const handleConvert = () => {
-    // Add conversion logic here
-    console.log("Converting code...");
+  const handleReset = () => {
+    console.log("Resetting data...");
   };
 
+  const handleImport = () => {
+    console.log("Import Code...");
+  };
+
+  const handleSave = () => {
+    console.log("Save code...");
+  };
+
+  const handleConvert = async () => {
+    try {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
+      const data = await response.json();
+      setOutputCode(JSON.stringify(data, null, 2));
+    } catch (error) {
+      console.error("Error converting code:", error);
+      setOutputCode("Error occurred while converting code.");
+    }
+  };
+
+  const handleGenerate = () => {
+    setIsShaking(true);
+    console.log("Generate Code...", outputCode);
+    setTimeout(() => setIsShaking(false), 500);
+  };
+
+  const handleDownload = () => {
+    console.log("Downloading code...");
+  };
+
+  const handleVoice = () => {
+    console.log("Voice to text...");
+  };
+
+  const handlePrompt = () => {
+    console.log("Adding Prompt...");
+  };
+  console.log("output", outputCode);
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-12 gap-6">
-        {/* Sidebar */}
         <div className="col-span-3">
           <div className="bg-white rounded-lg shadow p-4">
             <h2 className="text-lg font-medium mb-4">Productivity Enhancers</h2>
@@ -43,7 +84,6 @@ function CodeConverter() {
           </div>
         </div>
 
-        {/* Main Content */}
         <div className="col-span-9">
           <div className="bg-white rounded-lg shadow p-6">
             <h1 className="text-2xl font-medium mb-6 flex items-center gap-2">
@@ -79,22 +119,37 @@ function CodeConverter() {
                     placeholder="Ask a question..."
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                   />
-                  <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                  <button
+                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+                    onClick={handleVoice}
+                  >
                     <MicrophoneIcon className="h-5 w-5 text-gray-600" />
                   </button>
-                  <button className="p-2 rounded-full bg-primary hover:bg-primary/90">
+                  <button
+                    className="p-2 rounded-full bg-primary hover:bg-primary/90"
+                    onClick={handlePrompt}
+                  >
                     <ArrowRightIcon className="h-5 w-5 text-white" />
                   </button>
                 </div>
                 <div className="mt-6 grid grid-cols-4 gap-4 w-full">
-                  <button className="w-full px-4 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300">
+                  <button
+                    className="w-full px-4 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300"
+                    onClick={handleReset}
+                  >
                     <ArrowPathIcon className="h-4 w-4text-white" />
                     Reset
                   </button>
-                  <button className="w-full px-4 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300">
+                  <button
+                    className="w-full px-4 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300"
+                    onClick={handleImport}
+                  >
                     <ArrowDownRightIcon className="h-4 w-4text-white" /> Import
                   </button>
-                  <button className="w-full px-4 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300">
+                  <button
+                    className="w-full px-4 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300"
+                    onClick={handleSave}
+                  >
                     <BookmarkIcon className="h-4 w-4text-white" /> Save
                   </button>
                   <button
@@ -110,17 +165,31 @@ function CodeConverter() {
                 <h2 className="text-sm font-medium mb-2">
                   Microservices (SpringBoot/Python/Javascript)
                 </h2>
-                <div className="w-full h-80 p-3 bg-gray-50 border rounded-lg overflow-y-auto custom-scrollbar">
-                  <pre className="whitespace-pre-wrap break-words">
-                    {outputCode || "Converted code will appear here..."}
-                  </pre>
-                </div>
+                <MDEditor
+                  value={outputCode}
+                  onChange={setOutputCode}
+                  preview="live"
+                  hideToolbar={false}
+                  height={300}
+                  visibleDragbar={true}
+                  className="w-full h-80 bg-gray-50 border rounded-lg overflow-hidden"
+                />
                 <div className="flex justify-between mt-5">
-                  <button className="px-4 py-2 flex items-center justify-center gap-2 bg-white rounded-lg hover:bg-gray-300 w-[49%] border-2 border-secondary">
-                    <DocumentArrowUpIcon className="h-4 w-4text-white" />
-                    Export
+                  <button
+                    className="px-4 py-2 flex items-center justify-center gap-2 bg-white rounded-lg hover:bg-gray-300 w-[49%] border-2 border-secondary"
+                    onClick={handleGenerate}
+                  >
+                    <BeakerIcon
+                      className={`h-4 w-4 text-secondary ${
+                        isShaking ? "shake-animation" : ""
+                      }`}
+                    />
+                    Generate
                   </button>
-                  <button className="px-4 py-2 flex items-center justify-center bg-secondary gap-2 text-white rounded-lg hover:bg-black/90 w-[49%]">
+                  <button
+                    className="px-4 py-2 flex items-center justify-center bg-secondary gap-2 text-white rounded-lg hover:bg-black/90 w-[49%]"
+                    onClick={handleDownload}
+                  >
                     <ArrowDownTrayIcon className="h-4 w-4text-white" />
                     Download
                   </button>

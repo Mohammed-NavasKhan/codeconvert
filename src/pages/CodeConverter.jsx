@@ -3,8 +3,10 @@ import {
   ArrowDownTrayIcon,
   ArrowPathIcon,
   ArrowPathRoundedSquareIcon,
+  ArrowRightIcon,
   BookmarkIcon,
   DocumentArrowUpIcon,
+  MicrophoneIcon
 } from "@heroicons/react/16/solid";
 import { useState } from "react";
 
@@ -60,7 +62,6 @@ function CodeConverter() {
               </svg>
               Code Converter
             </h1>
-
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <h2 className="text-sm font-medium mb-2">
@@ -72,7 +73,20 @@ function CodeConverter() {
                   onChange={(e) => setInputCode(e.target.value)}
                   placeholder="Type or paste your code here..."
                 />
-                <div className="mt-4 grid grid-cols-4 gap-4 w-full">
+                <div className="relative flex items-center gap-2 mt-4">
+                  <input
+                    type="text"
+                    placeholder="Ask a question..."
+                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                  />
+                  <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200">
+                    <MicrophoneIcon className="h-5 w-5 text-gray-600" />
+                  </button>
+                  <button className="p-2 rounded-full bg-primary hover:bg-primary/90">
+                    <ArrowRightIcon className="h-5 w-5 text-white" />
+                  </button>
+                </div>
+                <div className="mt-6 grid grid-cols-4 gap-4 w-full">
                   <button className="w-full px-4 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300">
                     <ArrowPathIcon className="h-4 w-4text-white" />
                     Reset
@@ -81,21 +95,22 @@ function CodeConverter() {
                     <ArrowDownRightIcon className="h-4 w-4text-white" /> Import
                   </button>
                   <button className="w-full px-4 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300">
-                  <BookmarkIcon className="h-4 w-4text-white" /> Save
+                    <BookmarkIcon className="h-4 w-4text-white" /> Save
                   </button>
                   <button
                     className="w-full px-4 py-2 bg-primary text-white rounded-lg flex items-center justify-center gap-2 hover:bg-primary/90"
                     onClick={handleConvert}
                   >
-                    <ArrowPathRoundedSquareIcon className="h-4 w-4text-white" /> Convert
+                    <ArrowPathRoundedSquareIcon className="h-4 w-4text-white" />{" "}
+                    Convert
                   </button>
                 </div>
               </div>
               <div>
                 <h2 className="text-sm font-medium mb-2">
-                  Microservices (SpringBoot/Python/JSS)
+                  Microservices (SpringBoot/Python/Javascript)
                 </h2>
-                <div className="w-full h-64 p-3 bg-gray-50 border rounded-lg overflow-y-auto custom-scrollbar">
+                <div className="w-full h-80 p-3 bg-gray-50 border rounded-lg overflow-y-auto custom-scrollbar">
                   <pre className="whitespace-pre-wrap break-words">
                     {outputCode || "Converted code will appear here..."}
                   </pre>

@@ -5,7 +5,7 @@ function Navbar() {
     <nav className="bg-primary text-white">
       <div className="container mx-auto px-4">
         <div className="flex items-center h-16">
-          <Link to="/" className="text-xl font-medium">
+          <Link to="/modernisation" className="text-xl font-medium">
             <div class="icon-container">
               <div class="shape-container">
                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" focusable="false" height="43" viewBox="0 0 158 43" width="158">

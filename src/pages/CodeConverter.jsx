@@ -63,8 +63,8 @@ function CodeConverter() {
   console.log("output", outputCode);
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-3">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
+        <div className="lg:col-span-3">
           <div className="bg-white rounded-lg shadow p-4">
             <h2 className="text-lg font-medium mb-4">Productivity Enhancers</h2>
             <div className="space-y-4">
@@ -84,9 +84,9 @@ function CodeConverter() {
           </div>
         </div>
 
-        <div className="col-span-9">
-          <div className="bg-white rounded-lg shadow p-6">
-            <h1 className="text-2xl font-medium mb-6 flex items-center gap-2">
+        <div className="lg:col-span-9">
+          <div className="bg-white rounded-lg shadow p-4 lg:p-6">
+            <h1 className="text-xl lg:text-2xl font-medium mb-4 lg:mb-6 flex items-center gap-2">
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -102,18 +102,18 @@ function CodeConverter() {
               </svg>
               Code Converter
             </h1>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
               <div>
                 <h2 className="text-sm font-medium mb-2">
                   Input your legacy code (C/C++/Java/COBOL)
                 </h2>
                 <textarea
-                  className="w-full h-64 p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary resize-none overflow-y-auto"
+                  className="w-full h-48 lg:h-64 p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary resize-none overflow-y-auto"
                   value={inputCode}
                   onChange={(e) => setInputCode(e.target.value)}
                   placeholder="Type or paste your code here..."
                 />
-                <div className="relative flex items-center gap-2 mt-4">
+                <div className="relative flex items-center gap-2 mt-3 lg:mt-4">
                   <input
                     type="text"
                     placeholder="Ask a question..."
@@ -132,7 +132,7 @@ function CodeConverter() {
                     <ArrowRightIcon className="h-5 w-5 text-white" />
                   </button>
                 </div>
-                <div className="mt-6 grid grid-cols-4 gap-4 w-full">
+                <div className="mt-4 lg:mt-6 grid grid-cols-2 md:grid-cols-4 gap-2 lg:gap-4 w-full">
                   <button
                     className="w-full px-4 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300"
                     onClick={handleReset}
@@ -170,13 +170,13 @@ function CodeConverter() {
                   onChange={setOutputCode}
                   preview="preview"
                   hideToolbar={false}
-                  height={300}
+                  height={window.innerWidth < 768 ? 200 : 300}
                   visibleDragbar={true}
-                  className="w-full h-80 bg-gray-50 border rounded-lg overflow-hidden"
+                  className="w-full h-48 lg:h-80 bg-gray-50 border rounded-lg overflow-hidden"
                 />
-                <div className="flex justify-between mt-5">
+                <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-0 mt-3 lg:mt-5">
                   <button
-                    className="px-4 py-2 flex items-center justify-center gap-2 bg-white rounded-lg hover:bg-gray-300 w-[49%] border-2 border-secondary"
+                    className="w-full sm:w-[49%] px-4 py-2 flex items-center justify-center gap-2 bg-white rounded-lg hover:bg-gray-300 border-2 border-secondary"
                     onClick={handleGenerate}
                   >
                     <BeakerIcon
@@ -187,7 +187,7 @@ function CodeConverter() {
                     Generate
                   </button>
                   <button
-                    className="px-4 py-2 flex items-center justify-center bg-secondary gap-2 text-white rounded-lg hover:bg-black/90 w-[49%]"
+                    className="w-full sm:w-[49%] px-4 py-2 flex items-center justify-center bg-secondary gap-2 text-white rounded-lg hover:bg-black/90"
                     onClick={handleDownload}
                   >
                     <ArrowDownTrayIcon className="h-4 w-4text-white" />

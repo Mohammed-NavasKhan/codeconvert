@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import Breadcrumb from './components/Breadcrumb';
 import Home from './pages/Home';
 import CodeConverter from './pages/CodeConverter';
-
+import Mortgages from './pages/Mortgages'
 function App() {
   return (
     <Router>
@@ -13,6 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/modernisation" element={<CodeConverter />} />
+          <Route path="/mortgages" element={<Mortgages />} />
+
         </Routes>
       </div>
     </Router>

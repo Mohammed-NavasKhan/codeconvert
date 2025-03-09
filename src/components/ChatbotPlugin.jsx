@@ -1,18 +1,90 @@
-import { useState } from "react";
+import { useState,useEffect,useRef } from "react";
 import {XMarkIcon,PaperAirplaneIcon} from "@heroicons/react/20/solid";
 import Ai from "../assets/agent.png";
+import ReactMarkdown from "react-markdown";
 
 export default function ChatbotPlugin({isOpen, setIsOpen}) {
-  const [messages, setMessages] = useState([
-    { text: "Hello! How can I help you?", type: "bot" }
-  ]);
-  const [input, setInput] = useState("");
+  const API_URL = "https://mortgage-ai-api.onrender.com/chat";
 
-  const handleSendMessage = () => {
-    if (!input.trim()) return;
-    setMessages([...messages, { text: input, type: "user" }]);
-    setInput("");
-  };
+  const [messages, setMessages] = useState([
+    { text: "Hello! 😊 How can I help you? ", type: "bot" }
+  ]);
+
+  const chatRef = useRef(null);
+  const [input, setInput] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+    // Function to display AI response with typing effect
+    const typeBotMessage = (message, delay = 50) => {
+      setIsTyping(true);
+      let currentText = "";
+      let index = 0;
+  
+      const typingInterval = setInterval(() => {
+        if (index < message.length) {
+          currentText += message[index];
+          setMessages((prevMessages) => {
+            const lastMessage = prevMessages[prevMessages.length - 1];
+            if (lastMessage && lastMessage.type === "bot") {
+              return [...prevMessages.slice(0, -1), { text: currentText, type: "bot" }];
+            } else {
+              return [...prevMessages, { text: currentText, type: "bot" }];
+            }
+          });
+          index++;
+        } else {
+          clearInterval(typingInterval);
+          setIsTyping(false);
+        }
+      }, delay);
+    };
+
+
+
+    const sendMessageToBackend = async (userMessage) => {
+      setIsTyping(true);
+  
+      const payload = {
+        user_id: "101",
+        message: userMessage
+      };
+  
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          redirect: "follow"
+        });
+  
+        const result = await response.json(); // Parse JSON properly
+        const botMessage = result.response; // Extract actual bot response
+  
+        // Use typing effect to display AI response
+        typeBotMessage(botMessage, 50);
+      } catch (error) {
+        console.error("Error fetching AI response:", error);
+        setMessages((prev) => [...prev, { text: "Sorry, I couldn't process that. Try again.", type: "bot" }]);
+        setIsTyping(false);
+      }
+    };
+  
+
+    const handleSendMessage = () => {
+      if (!input.trim()) return;
+      setMessages([...messages, { text: input, type: "user" }]);
+      sendMessageToBackend(input);
+      setInput("");
+    };
+
+
+
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
@@ -30,19 +102,22 @@ export default function ChatbotPlugin({isOpen, setIsOpen}) {
                   <p className="text-xs opacity-80">Agentic AI Bot</p>
                 </div>
               </div>
-              <XMarkIcon className="cursor-pointer w-5 h-5" onClick={() => setIsOpen(false)} />
+              <XMarkIcon className="cursor-pointer w-5 h-5" onClick={() => setIsOpen(false)} aria-label="Close chat"/>
             </div>
 
             {/* Chat Messages */}
             <div className="h-64 overflow-auto p-3 flex flex-col gap-2">
-              {messages.map((msg, index) => (
+            {messages.map((msg, index) => (
                 <div
                   key={index}
-                  className={`p-2 text-sm rounded-lg ${msg.type === "bot" ? "bg-gray-100 self-start" : "bg-green-100 self-end"}`}
+                  className={`p-2 text-sm rounded-lg ${
+                    msg.type === "bot" ? "bg-gray-100 self-start" : "bg-green-100 self-end"
+                  }`}
                 >
-                  {msg.text}
+                 <ReactMarkdown>{msg.text}</ReactMarkdown>
                 </div>
               ))}
+              {isTyping && <div className="self-start bg-gray-100 p-2 text-sm rounded-lg italic">Typing...</div>}
             </div>
 
             {/* Quick Reply Buttons */}
@@ -67,8 +142,9 @@ export default function ChatbotPlugin({isOpen, setIsOpen}) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+                aria-label="Type a message"
               />
-               <PaperAirplaneIcon className="bg-[#006a4d] text-white p-2 rounded-lg w-8 h-8 cursor-pointer" size={16} onClick={handleSendMessage}/>
+               <PaperAirplaneIcon className="bg-[#006a4d] text-white p-2 rounded-lg w-8 h-8 cursor-pointer" size={16} onClick={handleSendMessage}  aria-label="Send message"/>
             </div>
           </div>
         </div>

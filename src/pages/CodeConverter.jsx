@@ -24,9 +24,18 @@ function CodeConverter() {
     setOutputCode("Converted code will appear here...");
   };
 
-  const handleImport = () => {
-    console.log("Import Code...");
+  const handleFileUpload = (event) => {
+    setInputCode("");
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setInputCode(e.target.result);
+      };
+      reader.readAsText(file);
+    }
   };
+  
 
   const handleSave = () => {
     console.log("Save code...");
@@ -60,7 +69,6 @@ function CodeConverter() {
   const handlePrompt = () => {
     console.log("Adding Prompt...");
   };
-  console.log("output", outputCode);
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
@@ -108,7 +116,7 @@ function CodeConverter() {
                   Input your legacy code (C/C++/Java/COBOL)
                 </h2>
                 <textarea
-                  className="w-full h-48 lg:h-64 p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary resize-none overflow-y-auto"
+                  className="w-full h-48 lg:h-64 p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary overflow-y-auto"
                   value={inputCode}
                   onChange={(e) => setInputCode(e.target.value)}
                   placeholder="Type or paste your code here..."
@@ -139,11 +147,18 @@ function CodeConverter() {
                   >
                     <ArrowPathIcon className="h-4 w-4 text-black flex-shrink-0 transition-transform duration-300 group-hover:rotate-180" />
                     Reset
-                  </button>
+                  </button>                  
                   <button
-                    className="w-full min-h-[40px] px-3 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-1.5 hover:bg-gray-300 text-sm group"
-                    onClick={handleImport}
+                    className="w-full min-h-[40px] px-3 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-1.5 hover:bg-gray-300 text-sm group relative"
+                    onClick={() => document.getElementById('fileInput').click()}
                   >
+                    <input
+                      type="file"
+                      id="fileInput"
+                      accept=".js,.jsx,.ts,.tsx,.py,.java,.cpp,.c,.cs,.rb,.php,.go,.rs,.swift,.kt,.pl,.r,.m,.h,.scala,.sql,.cobol"
+                      className="hidden"
+                      onChange={handleFileUpload}
+                    />
                     <ArrowDownRightIcon className="h-4 w-4 text-black flex-shrink-0 transition-transform duration-300 group-hover:translate-y-0.5 group-hover:translate-x-0.5" />
                     Import
                   </button>

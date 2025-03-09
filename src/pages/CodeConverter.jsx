@@ -16,10 +16,12 @@ function CodeConverter() {
   const [outputCode, setOutputCode] = useState(
     "Converted code will appear here..."
   );
-  const [isShaking, setIsShaking] = useState(false);
+
 
   const handleReset = () => {
     console.log("Resetting data...");
+    setInputCode("");
+    setOutputCode("Converted code will appear here...");
   };
 
   const handleImport = () => {
@@ -44,9 +46,7 @@ function CodeConverter() {
   };
 
   const handleGenerate = () => {
-    setIsShaking(true);
     console.log("Generate Code...", outputCode);
-    setTimeout(() => setIsShaking(false), 500);
   };
 
   const handleDownload = () => {
@@ -68,15 +68,15 @@ function CodeConverter() {
           <div className="bg-white rounded-lg shadow p-4">
             <h2 className="text-lg font-medium mb-4">Productivity Enhancers</h2>
             <div className="space-y-4">
-              <div className="p-4 border rounded-lg">
-                <h3 className="font-medium">Code Converter</h3>
-                <p className="text-sm text-gray-600">
+              <div className="p-4 border rounded-lg transition-colors duration-300 hover:bg-primary hover:border-primary group cursor-pointer">
+                <h3 className="font-medium group-hover:text-white">Code Converter</h3>
+                <p className="text-sm text-gray-600 group-hover:text-white">
                   Lorem ipsum dolor sit amet
                 </p>
               </div>
-              <div className="p-4 border rounded-lg">
-                <h3 className="font-medium">Help & Security</h3>
-                <p className="text-sm text-gray-600">
+              <div className="p-4 border rounded-lg transition-colors duration-300 hover:bg-primary hover:border-primary group cursor-pointer">
+                <h3 className="font-medium group-hover:text-white">Help & Security</h3>
+                <p className="text-sm text-gray-600 group-hover:text-white">
                   Lorem ipsum dolor sit amet
                 </p>
               </div>
@@ -120,43 +120,45 @@ function CodeConverter() {
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                   />
                   <button
-                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 group"
                     onClick={handleVoice}
                   >
-                    <MicrophoneIcon className="h-5 w-5 text-gray-600" />
+                    <MicrophoneIcon className="h-5 w-5 text-gray-600 transition-transform duration-300 group-hover:translate-y-0.5" />
                   </button>
                   <button
-                    className="p-2 rounded-full bg-primary hover:bg-primary/90"
+                    className="p-2 rounded-full bg-primary hover:bg-primary/90 group"
                     onClick={handlePrompt}
                   >
-                    <ArrowRightIcon className="h-5 w-5 text-white" />
+                    <ArrowRightIcon className="h-5 w-5 text-white transition-transform duration-300 group-hover:translate-x-0.5" />
                   </button>
                 </div>
                 <div className="mt-4 lg:mt-6 grid grid-cols-2 md:grid-cols-4 gap-2 lg:gap-4 w-full">
                   <button
-                    className="w-full px-4 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300"
+                    className="w-full min-h-[40px] px-3 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-1.5 hover:bg-gray-300 text-sm focus:outline-none group"
                     onClick={handleReset}
                   >
-                    <ArrowPathIcon className="h-4 w-4text-white" />
+                    <ArrowPathIcon className="h-4 w-4 text-black flex-shrink-0 transition-transform duration-300 group-hover:rotate-180" />
                     Reset
                   </button>
                   <button
-                    className="w-full px-4 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300"
+                    className="w-full min-h-[40px] px-3 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-1.5 hover:bg-gray-300 text-sm group"
                     onClick={handleImport}
                   >
-                    <ArrowDownRightIcon className="h-4 w-4text-white" /> Import
+                    <ArrowDownRightIcon className="h-4 w-4 text-black flex-shrink-0 transition-transform duration-300 group-hover:translate-y-0.5 group-hover:translate-x-0.5" />
+                    Import
                   </button>
                   <button
-                    className="w-full px-4 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-300"
+                    className="w-full min-h-[40px] px-3 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-1.5 hover:bg-gray-300 text-sm group"
                     onClick={handleSave}
                   >
-                    <BookmarkIcon className="h-4 w-4text-white" /> Save
-                  </button>
+                    <BookmarkIcon className="h-4 w-4 text-black flex-shrink-0 transition-transform duration-300 group-hover:translate-y-0.5" />
+                    Save
+                  </button> 
                   <button
-                    className="w-full px-4 py-2 bg-primary text-white rounded-lg flex items-center justify-center gap-2 hover:bg-primary/90"
+                    className="w-full min-h-[40px] px-3 py-2 bg-primary text-white rounded-lg flex items-center justify-center gap-1.5 hover:bg-primary/90 text-sm focus:outline-none group"
                     onClick={handleConvert}
                   >
-                    <ArrowPathRoundedSquareIcon className="h-4 w-4text-white" />{" "}
+                    <ArrowPathRoundedSquareIcon className="h-4 w-4 text-white flex-shrink-0 transition-transform duration-300 group-hover:rotate-180" />
                     Convert
                   </button>
                 </div>
@@ -176,21 +178,19 @@ function CodeConverter() {
                 />
                 <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-0 mt-3 lg:mt-5">
                   <button
-                    className="w-full sm:w-[49%] px-4 py-2 flex items-center justify-center gap-2 bg-white rounded-lg hover:bg-gray-300 border-2 border-secondary"
+                    className="w-full sm:w-[49%] px-4 py-2 flex items-center justify-center gap-2 bg-white rounded-lg hover:bg-gray-300 border-2 border-secondary group"
                     onClick={handleGenerate}
                   >
                     <BeakerIcon
-                      className={`h-4 w-4 text-secondary ${
-                        isShaking ? "shake-animation" : ""
-                      }`}
+                      className={`h-4 w-4 text-secondary group-hover:animate-[wiggle_0.5s_ease-in-out]`}
                     />
                     Generate
                   </button>
                   <button
-                    className="w-full sm:w-[49%] px-4 py-2 flex items-center justify-center bg-secondary gap-2 text-white rounded-lg hover:bg-black/90"
+                    className="w-full sm:w-[49%] px-4 py-2 flex items-center justify-center bg-secondary gap-2 text-white rounded-lg hover:bg-black/90 group"
                     onClick={handleDownload}
                   >
-                    <ArrowDownTrayIcon className="h-4 w-4text-white" />
+                    <ArrowDownTrayIcon className="h-4 w-4 text-white flex-shrink-0 transition-transform duration-300 group-hover:translate-y-0.5" />
                     Download
                   </button>
                 </div>

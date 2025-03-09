@@ -17,7 +17,6 @@ function CodeConverter() {
     "Converted code will appear here..."
   );
 
-
   const handleReset = () => {
     console.log("Resetting data...");
     setInputCode("");
@@ -35,7 +34,6 @@ function CodeConverter() {
       reader.readAsText(file);
     }
   };
-  
 
   const handleSave = () => {
     console.log("Save code...");
@@ -54,8 +52,18 @@ function CodeConverter() {
     }
   };
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     console.log("Generate Code...", outputCode);
+    try {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
+      const data = await response.json();
+      setOutputCode(JSON.stringify(data, null, 2));
+    } catch (error) {
+      console.error("Error converting code:", error);
+      setOutputCode("Error occurred while converting code.");
+    }
   };
 
   const handleDownload = () => {
@@ -77,13 +85,17 @@ function CodeConverter() {
             <h2 className="text-lg font-medium mb-4">Productivity Enhancers</h2>
             <div className="space-y-4">
               <div className="p-4 border rounded-lg transition-colors duration-300 hover:bg-primary hover:border-primary group cursor-pointer">
-                <h3 className="font-medium group-hover:text-white">Code Converter</h3>
+                <h3 className="font-medium group-hover:text-white">
+                  Code Converter
+                </h3>
                 <p className="text-sm text-gray-600 group-hover:text-white">
                   Lorem ipsum dolor sit amet
                 </p>
               </div>
               <div className="p-4 border rounded-lg transition-colors duration-300 hover:bg-primary hover:border-primary group cursor-pointer">
-                <h3 className="font-medium group-hover:text-white">Help & Security</h3>
+                <h3 className="font-medium group-hover:text-white">
+                  Help & Security
+                </h3>
                 <p className="text-sm text-gray-600 group-hover:text-white">
                   Lorem ipsum dolor sit amet
                 </p>
@@ -147,10 +159,10 @@ function CodeConverter() {
                   >
                     <ArrowPathIcon className="h-4 w-4 text-black flex-shrink-0 transition-transform duration-300 group-hover:rotate-180" />
                     Reset
-                  </button>                  
+                  </button>
                   <button
                     className="w-full min-h-[40px] px-3 py-2 bg-gray-200 rounded-lg flex items-center justify-center gap-1.5 hover:bg-gray-300 text-sm group relative"
-                    onClick={() => document.getElementById('fileInput').click()}
+                    onClick={() => document.getElementById("fileInput").click()}
                   >
                     <input
                       type="file"
@@ -168,7 +180,7 @@ function CodeConverter() {
                   >
                     <BookmarkIcon className="h-4 w-4 text-black flex-shrink-0 transition-transform duration-300 group-hover:translate-y-0.5" />
                     Save
-                  </button> 
+                  </button>
                   <button
                     className="w-full min-h-[40px] px-3 py-2 bg-primary text-white rounded-lg flex items-center justify-center gap-1.5 hover:bg-primary/90 text-sm focus:outline-none group"
                     onClick={handleConvert}

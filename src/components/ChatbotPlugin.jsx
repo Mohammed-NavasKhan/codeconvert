@@ -22,7 +22,7 @@ export default function ChatbotPlugin({isOpen, setIsOpen}) {
           {/* Chatbox UI */}
           <div className="relative bottom-12 right-4 w-80 shadow-2xl rounded-xl bg-white border border-gray-300 z-50" onClick={(e) => e.stopPropagation()}>
             {/* Header */}
-            <div className="flex items-center justify-between bg-[#006a4d] text-white p-3 rounded-t-xl">
+            <div className="flex items-center justify-between bg-primary text-white p-3 rounded-t-xl">
               <div className="flex items-center gap-2">
                 <img src={Ai} alt="Bot Avatar" className="w-8 h-8 rounded-full" />
                 <div>
@@ -68,7 +68,7 @@ export default function ChatbotPlugin({isOpen, setIsOpen}) {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
               />
-               <PaperAirplaneIcon className="bg-[#006a4d] text-white p-2 rounded-lg w-8 h-8 cursor-pointer" size={16} onClick={handleSendMessage}/>
+               <PaperAirplaneIcon className="bg-primary text-white p-2 rounded-lg w-8 h-8 cursor-pointer" size={16} onClick={handleSendMessage}/>
             </div>
           </div>
         </div>

@@ -79,16 +79,16 @@ const Mortgages = () => {
             Recommendations
           </h2>
           <div className="flex flex-wrap gap-3">
-            <button className="p-2 border border-[#006a4d] rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
+            <button className="p-2 border border-primary rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
               You could borrow up to £475,000 over a term of 25 years.
             </button>
-            <button className="p-2 border border-[#006a4d] rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
+            <button className="p-2 border border-primary rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
               You are eligible for Club Lloyds
             </button>
-            <button className="p-2 border border-[#006a4d] rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
+            <button className="p-2 border border-primary rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit
             </button>
-            <button className="p-2 border border-[#006a4d] rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
+            <button className="p-2 border border-primary rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
               Lorem ipsum dolor sit amet.
             </button>
           </div>
@@ -100,13 +100,13 @@ const Mortgages = () => {
             You might also be interested in
           </h2>
           <div className="flex gap-3 mb-3">
-            <button className="p-2 border border-[#006a4d] rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
+            <button className="p-2 border border-primary rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
               Home Insurance
             </button>
-            <button className="p-2 border border-[#006a4d] rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
+            <button className="p-2 border border-primary rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
               Moving Home
             </button>
-            <button className="p-2 border border-[#006a4d] rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
+            <button className="p-2 border border-primary rounded-lg hover:bg-gray-300 transition whitespace-nowrap">
               Home Mover Mortgages
             </button>
           </div>

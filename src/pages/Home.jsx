@@ -3,9 +3,10 @@ import ChatbotPlugin from "../components/ChatbotPlugin";
 import MortgageMateCard from "../components/MortgageMateCard";
 import MortgageTools from "../components/MortgageTools";
 const Home = () => {
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="justify-center min-h-screen bg-gray-100 p-6">
+      <div className="container mx-auto ">
       <div className="flex flex-col md:flex-row h-full">
         {/* Left Section */}
         <div className="relative w-full max-w-7xl mx-auto p-4">
@@ -19,14 +20,14 @@ const Home = () => {
           </div>
 
           {/* Text Content Box */}
-          <div className="absolute top-1/2 left-10 md:left-16 transform -translate-y-1/2 bg-green-900 text-white p-6 rounded-lg max-w-md shadow-lg">
-            <h1 className="text-3xl font-bold">Mortgages</h1>
-            <p className="mt-2 text-base">
+          <div className="absolute top-1/2 left-10 md:left-16 transform -translate-y-1/2 bg-primary text-white p-6 rounded-lg max-w-md shadow-lg">
+            <h1 className="text-4xl font-bold mb-6 mt-2">Mortgages</h1>
+            <p className="mt-2 mb-6 text-xl">
               Do you have a Club Lloyds current account? You could get an
               exclusive 0.20% discount on your initial rate when you complete on
               a qualifying mortgage with us.
             </p>
-            <button className="mt-4 border border-white text-white px-4 py-2 rounded-lg hover:bg-white hover:text-green-900 transition">
+            <button className="mt-4 border font-bold border-white text-white px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition">
               Our Club Lloyds offers
             </button>
           </div>
@@ -35,8 +36,9 @@ const Home = () => {
         {/* Right Section */}
         <MortgageMateCard setIsOpen={setIsOpen} />
       </div>
-      <MortgageTools  />
-      <ChatbotPlugin {...{isOpen, setIsOpen}}/>
+      <MortgageTools />
+      <ChatbotPlugin {...{ isOpen, setIsOpen }} />
+    </div>
     </div>
   );
 };

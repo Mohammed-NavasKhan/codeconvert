@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
   ArrowDownRightIcon,
   ArrowDownTrayIcon,
@@ -6,25 +7,33 @@ import {
   ArrowRightIcon,
   BeakerIcon,
   BookmarkIcon,
+  CodeBracketSquareIcon,
   MicrophoneIcon,
+  TvIcon,
 } from "@heroicons/react/16/solid";
-import MDEditor from "@uiw/react-md-editor";
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import TextareaAutosize from "react-textarea-autosize";
+import { useReactToPrint } from "react-to-print";
 
 function CodeConverter() {
+  const contentRef = useRef();
   const [inputCode, setInputCode] = useState("");
   const [outputCode, setOutputCode] = useState(
     "Converted code will appear here..."
   );
+  const [isPreview, setIsPreview] = useState(true);
 
   const handleReset = () => {
     console.log("Resetting data...");
     setInputCode("");
     setOutputCode("Converted code will appear here...");
+    const fileInput = document.getElementById("fileInput");
+    if (fileInput) fileInput.value = "";
   };
 
   const handleFileUpload = (event) => {
-    setInputCode("");
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -35,8 +44,26 @@ function CodeConverter() {
     }
   };
 
+  const handlePrint = useReactToPrint({
+    contentRef,
+    documentTitle: "converted_code",
+    pageStyle: `
+      @media print {
+        body {
+          padding: 20px;
+          font-family: monospace;
+          font-size: 16px;
+        }        
+      }
+    `,
+  });
+
   const handleSave = () => {
-    console.log("Save code...");
+    console.log("saving pdf");   
+    setIsPreview(true);
+    setTimeout(() => {
+      handlePrint();
+    }, 100)
   };
 
   const handleConvert = async () => {
@@ -77,6 +104,7 @@ function CodeConverter() {
   const handlePrompt = () => {
     console.log("Adding Prompt...");
   };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
@@ -191,18 +219,39 @@ function CodeConverter() {
                 </div>
               </div>
               <div>
-                <h2 className="text-sm font-medium mb-2">
-                  Microservices (SpringBoot/Python/Javascript)
-                </h2>
-                <MDEditor
-                  value={outputCode}
-                  onChange={setOutputCode}
-                  preview="preview"
-                  hideToolbar={false}
-                  height={window.innerWidth < 768 ? 200 : 300}
-                  visibleDragbar={true}
-                  className="w-full h-48 lg:h-80 bg-gray-50 border rounded-lg overflow-hidden"
-                />
+                <div className="flex justify-between mb-2 items-center text-sm font-medium ">
+                  <h2>Microservices (SpringBoot/Python/Javascript)</h2>
+                  <button onClick={() => setIsPreview(!isPreview)}>
+                    {isPreview ? (
+                      <CodeBracketSquareIcon
+                        className={`h-5 w-5 text-primary hover:text-gray-700`}
+                      />
+                    ) : (
+                      <TvIcon
+                        className={`h-5 w-5 text-primary hover:text-gray-700`}
+                      />
+                    )}
+                  </button>
+                </div>
+                {isPreview ? (
+                  <div className="w-full h-48 lg:h-80 bg-gray-50 border rounded-lg overflow-y-scroll p-3">
+                    <div ref={contentRef} className="print-content">
+                      <div>
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                          {outputCode}
+                        </ReactMarkdown>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <TextareaAutosize
+                    className="w-full h-48 lg:h-80 bg-gray-50 border rounded-lg overflow-y-scroll p-3"
+                    value={outputCode}
+                    onChange={(e) => setOutputCode(e.target.value)}
+                    minRows={12}
+                    maxRows={12}
+                  />
+                )}
                 <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-0 mt-3 lg:mt-5">
                   <button
                     className="w-full sm:w-[49%] px-4 py-2 flex items-center justify-center gap-2 bg-white rounded-lg hover:bg-gray-300 border-2 border-secondary group"

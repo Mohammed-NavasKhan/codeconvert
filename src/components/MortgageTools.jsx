@@ -59,9 +59,7 @@ export default function MortgageTools() {
             <img src={notification} className="w-24 h-24" />
           </div>
           <div className="flex items-center gap-3 h-16 mb-3">
-            <h3 className="text-3xl font-semibold">
-              Your personalised mortgage dashboard
-            </h3>
+            <h3 className="text-3xl font-semibold">Your mortgage dashboard</h3>
           </div>
           <div className="flex-grow">
             <p className="mt-2 text-gray-600">

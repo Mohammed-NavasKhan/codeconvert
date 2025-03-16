@@ -12,8 +12,8 @@ const MortgageMateCard = ({setIsOpen}) => {
     <div className="md:w-1/3 flex-2 h-full mt-5 mx-auto">
       <div className="bg-[#006a4d] rounded-lg shadow-lg max-w-md flex-2 h-full">
         <div className="flex items-center gap-6 p-6 pb-1">
-          <div className="w-16 h-14 flex items-center justify-center">
-            <img src={Ai} alt="AI Icon" />
+          <div className="w-[80px] h-[63px] flex items-center justify-center">
+            <img src={Ai} alt="AI Icon"  className="w-[80px] h-[63px]"/>
           </div>
           <div>
             <h2 className="text-lg text-white font-semibold">Mortgage Mate</h2>
@@ -37,3 +37,4 @@ const MortgageMateCard = ({setIsOpen}) => {
 };
 
 export default MortgageMateCard;
+

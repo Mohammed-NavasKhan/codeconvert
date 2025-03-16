@@ -25,7 +25,7 @@ const Mortgages = () => {
 
     recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript;
-      setInputText(transcript);
+      setInput(transcript);
     };
 
     recognition.onerror = (event) => {

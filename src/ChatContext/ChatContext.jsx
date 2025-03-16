@@ -71,7 +71,7 @@ const sendMessageToBackend = async (userMessage) => {
     const botMessage = result.response; // Extract actual bot response
 
     // Use typing effect to display AI response
-    typeBotMessage(botMessage, 50);
+    typeBotMessage(botMessage, 35);
   } catch (error) {
     console.error("Error fetching AI response:", error);
     setMessages((prev) => [

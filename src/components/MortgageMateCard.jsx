@@ -9,11 +9,11 @@ const FeatureItem = ({ text }) => (
 
 const MortgageMateCard = ({ setIsOpen }) => {
   return (
-    <div className="md:w-1/3 flex-2 h-full mt-4 mx-auto">
-      <div className="bg-primary rounded-lg shadow-lg max-w-md flex-2 h-full">
-        <div className="flex items-center gap-6 p-4 pb-0">
-          <div className="w-24 h-24 flex">
-            <img src={Ai} alt="AI Icon" width={100} height={100} />
+    <div className="md:w-1/3 flex-2 h-full mt-5 mx-auto">
+      <div className="bg-[#006a4d] rounded-lg shadow-lg max-w-md flex-2 h-full">
+        <div className="flex items-center gap-6 p-6 pb-1">
+          <div className="w-[80px] h-[63px] flex items-center justify-center">
+            <img src={Ai} alt="AI Icon"  className="w-[80px] h-[63px]"/>
           </div>
           <div>
             <h2 className="text-xl text-white font-semibold mb-1">
@@ -46,3 +46,4 @@ const MortgageMateCard = ({ setIsOpen }) => {
 };
 
 export default MortgageMateCard;
+

@@ -51,6 +51,7 @@ export const ChatProvider = ({ children }) => {
   }, delay);
 };
 
+
 const sendMessageToBackend = async (userMessage) => {
   setIsTyping(true);
 
@@ -81,6 +82,66 @@ const sendMessageToBackend = async (userMessage) => {
     setIsTyping(false);
   }
 };
+
+
+
+
+/*
+const sendMessageToBackend = async (userMessage) => {
+  setIsTyping(true);
+
+  const myHeaders = new Headers();
+  myHeaders.append("Origin", "http://localhost:4200");
+  myHeaders.append("Authorization", "Bearer *****Token*****");
+  myHeaders.append("Content-Type", "application/json");
+
+  const payload = JSON.stringify({
+    provider_name: "AzureOpenAI",
+    model_name: "gpt-4o",
+    temperature: 0.1,
+    human_message: userMessage, 
+    system_message: "",
+    context: "***************************************** REPLACE THIS ***********************",
+    module_type: "BusinessModule",
+    fetch_from_db: false,
+    include_chat_history: true,
+    should_clear_session: false,
+    no_of_past_messages: 10
+  });
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: payload,
+    redirect: "follow",
+  };
+
+  try {
+    const response = await fetch(
+      "https://sit.nonprod.tcsaivisdomnext.tcsapps.com/wisdomv3/api/ragnormal/chat/defined-context/925/16",
+      requestOptions
+    );
+
+    const result = await response.json();
+    const botMessage = result.response || "Sorry, I couldn't process that."; 
+
+    typeBotMessage(botMessage, 35);
+  } catch (error) {
+    console.error("Error fetching AI response:", error);
+    setMessages((prev) => [
+      ...prev,
+      { text: "Sorry, I couldn't process that. Try again.", type: "bot" },
+    ]);
+    setIsTyping(false);
+  }
+};
+*/
+
+
+
+
+
+
 
 const handleSendMessage = () => {
   if (!input.trim()) return;
